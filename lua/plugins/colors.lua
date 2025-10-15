@@ -402,5 +402,5 @@ return {
         config = function(_, opts)
             require("tokyonight").setup(opts)
         end
-    }
+    },
 }

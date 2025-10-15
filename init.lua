@@ -143,6 +143,30 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+-- Auto-reload files changed outside of Neovim (e.g., via lazygit in another tmux pane)
+vim.opt.autoread = true
+
+-- When Neovim regains focus or you enter a buffer, ask Vim to check if files changed
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  pattern = "*",
+  callback = function()
+    -- Only check for normal listed, modifiable buffers
+    if vim.api.nvim_buf_get_option(0, "buftype") == "" and vim.api.nvim_buf_get_option(0, "modifiable") then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+-- Nice notice when a file was reloaded because it changed on disk
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  pattern = "*",
+  callback = function()
+    local name = vim.api.nvim_buf_get_name(0)
+    pcall(vim.notify, ("File changed on disk. Reloaded: %s"):format(vim.fn.fnamemodify(name, ":.")))
+  end,
+})
+
+
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
