@@ -40,7 +40,7 @@ return {
 			desc = "Git Blame Line",
 		},
 		{
-			"<leader>gf",
+			"<leader>glf",
 			function()
 				Snacks.lazygit.log_file()
 			end,
