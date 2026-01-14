@@ -140,8 +140,6 @@ return {
 		end, {})
 
 		-- Example keybinding
-		vim.keymap.set("n", "<C-p>", function()
-			dotnet.run_project()
-		end)
+		vim.keymap.set("n", "<leader>dn", "<cmd>Dotnet<CR>");
 	end,
 }

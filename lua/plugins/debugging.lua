@@ -10,6 +10,13 @@ return {
 		local dap = require("dap")
 		local dapui = require("dapui")
 
+        dap.adapters.coreclr = {
+            type = 'executable',
+            command = '/path/to/dotnet/netcoredbg/netcoredbg',
+            args = {'--interpreter=vscode'}
+        }
+
+
 		dap.listeners.before.attach.dapui_config = function()
 			dapui.open()
 		end

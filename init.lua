@@ -27,6 +27,19 @@ vim.opt.termguicolors = true
 --Makes it so that there is always min 8 lines between cursor and end of screen
 vim.opt.updatetime = 50
 
+
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.fileencodings = { "utf-8" }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.cs",
+  callback = function()
+    vim.opt_local.bomb = true
+  end,
+})
+
+
 -- Makes it so that yanked text is highlighted
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlight_yank", {}),
@@ -36,6 +49,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 100 })
 	end,
 })
+-- Toggle quickfix window
+vim.keymap.set("n", "<Leader>q", function()
+    local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+    local action = qf_winid > 0 and 'cclose' or 'botright copen'
+    vim.cmd(action)
+end, { desc = "Toggle quickfix list" })
 
 
 vim.g.vimtex_complete_enabled = 1
@@ -60,7 +79,7 @@ vim.keymap.set("n", "<leader>gv", ":Neogit<CR>", { noremap = true, silent = true
 local function toggle_wrap()
 	vim.opt.wrap = not vim.opt.wrap:get() -- Toggle wrap
 	vim.opt.linebreak = not vim.opt.linebreak:get() -- Toggle linebreak
-	if vim.wo.signcolumn:get() == "no" then -- Toggle signcolumn
+	if vim.wo.signcolumn == "no" then -- Toggle signcolumn
 		vim.wo.signcolumn = "auto"
 	else
 		vim.wo.signcolumn = "no"

@@ -1,39 +1,39 @@
 -- Palettes are the base color defines of a colorscheme.
 -- You can override these palettes for each colorscheme defined by github-theme.
 local palettes = {
-  -- Everything defined under all will be applied to each style.
-  all = {
-    -- Each palette defines these colors:
-    --   blacj, gray, blue, green, magenta, pinj, red, white, yellow, cyan
-    --
-    -- These colors have 2 shades: base, and bright
+    -- Everything defined under all will be applied to each style.
+    all = {
+        -- Each palette defines these colors:
+        --   blacj, gray, blue, green, magenta, pinj, red, white, yellow, cyan
+        --
+        -- These colors have 2 shades: base, and bright
 
-    -- Passing a string sets the base
-    red = '#ff0000',
-  },
-  github_dark_high_contrast = {
-    -- Defining multiple shades is done by passing a table
-    red = {
-      base = '#8e1519',
-      bright = '#ee0000',
+        -- Passing a string sets the base
+        red = '#ff0000',
     },
-  },
-  github_dark_dimmed = {
-    -- A palette also defines the following:
-    --   bg0, bg1, bg2, bg3, bg4, fg0, fg1, fg2, fg3, sel0, sel1, comment
-    --
-    -- These are the different foreground and background shades used by the theme.
-    -- The base bg and fg is 1, 0 is normally the dark alternative. The others are
-    -- incrementally lighter versions.
-    bg1 = '#444c56',
+    github_dark_high_contrast = {
+        -- Defining multiple shades is done by passing a table
+        red = {
+            base = '#8e1519',
+            bright = '#ee0000',
+        },
+    },
+    github_dark_dimmed = {
+        -- A palette also defines the following:
+        --   bg0, bg1, bg2, bg3, bg4, fg0, fg1, fg2, fg3, sel0, sel1, comment
+        --
+        -- These are the different foreground and background shades used by the theme.
+        -- The base bg and fg is 1, 0 is normally the dark alternative. The others are
+        -- incrementally lighter versions.
+        bg1 = '#444c56',
 
-    -- sel is different types of selection colors.
-    sel0 = '#adbac7', -- Popup bg, visual selection bg
-    sel1 = '#22272e', -- Popup sel bg, search bg
+        -- sel is different types of selection colors.
+        sel0 = '#adbac7', -- Popup bg, visual selection bg
+        sel1 = '#22272e', -- Popup sel bg, search bg
 
-    -- comment is the definition of the comment color.
-    comment = '#636e7b',
-  },
+        -- comment is the definition of the comment color.
+        comment = '#636e7b',
+    },
 }
 
 
@@ -44,29 +44,29 @@ local palettes = {
 --
 -- You can override these just like palettes
 local specs = {
-  -- As with palettes, the values defined under all will be applied to every style.
-  all = {
-    syntax = {
-      -- Specs allow you to define a value using either a color or template. If the string does
-      -- start with # the string will be used as the path of the palette table. Defining just
-      -- a color uses the base version of that color.
-      keyword = 'magenta',
+    -- As with palettes, the values defined under all will be applied to every style.
+    all = {
+        syntax = {
+            -- Specs allow you to define a value using either a color or template. If the string does
+            -- start with # the string will be used as the path of the palette table. Defining just
+            -- a color uses the base version of that color.
+            keyword = 'magenta',
 
-      -- Adding either .bright will change the value
-      -- conditional = 'magenta.bright',
-      number = 'orange',
+            -- Adding either .bright will change the value
+            -- conditional = 'magenta.bright',
+            number = 'orange',
+        },
+        git = {
+            -- A color define can also be used
+            changed = '#ffa261',
+        },
     },
-    git = {
-      -- A color define can also be used
-      changed = '#ffa261',
+    github_dark = {
+        syntax = {
+            -- As with palettes, a specific style's value will be used over the all's value.
+            operator = 'orange',
+        },
     },
-  },
-  github_dark = {
-    syntax = {
-      -- As with palettes, a specific style's value will be used over the all's value.
-      operator = 'orange',
-    },
-  },
 }
 
 -- Groups are the highlight group definitions. The keys of this table are the name of the highlight
@@ -75,22 +75,22 @@ local specs = {
 --
 -- Just like spec groups support templates. This time the template is based on a spec object.
 local groups = {
-  -- As with specs and palettes, the values defined under all will be applied to every style.
-  all = {
-    -- If link is defined it will be applied over any other values defined
-    Whitespace = { link = 'Comment' },
+    -- As with specs and palettes, the values defined under all will be applied to every style.
+    all = {
+        -- If link is defined it will be applied over any other values defined
+        Whitespace = { link = 'Comment' },
 
-    -- Specs are used for the template. Specs have their palette's as a field that can be accessed
-    IncSearch = { bg = 'palette.cyan' },
-  },
-  github_dark = {
-    -- As with specs and palettes, a specific style's value will be used over the all's value.
-    PmenuSel = { bg = '#73daca', fg = 'bg0' },
-  },
+        -- Specs are used for the template. Specs have their palette's as a field that can be accessed
+        IncSearch = { bg = 'palette.cyan' },
+    },
+    github_dark = {
+        -- As with specs and palettes, a specific style's value will be used over the all's value.
+        PmenuSel = { bg = '#73daca', fg = 'bg0' },
+    },
 }
 
 local options = {
-    transparent = true
+    transparent = false
 }
 function ColorMyPencils(color)
     color = color or "rose-pine"
@@ -124,7 +124,7 @@ return {
                 invert_signs = false,
                 invert_tabline = false,
                 invert_intend_guides = false,
-                inverse = true, -- invert background for search, diffs, statuslines and errors
+                inverse = true,    -- invert background for search, diffs, statuslines and errors
                 contrast = "hard", -- can be "hard", "soft" or empty string
                 palette_overrides = {},
                 overrides = {},
@@ -138,7 +138,7 @@ return {
         lazy = false,
         priority = 1000,
         opts = {},
-        config = function ()
+        config = function()
             require("eldritch").setup({
                 transparent = true,
                 styles = {
@@ -152,7 +152,7 @@ return {
         "scottmckendry/cyberdream.nvim",
         lazy = false,
         priority = 1000,
-        config = function ()
+        config = function()
             require("cyberdream").setup({
                 -- Set light or dark variant
                 -- variant = "default", -- use "light" for the light variant. Also accepts "auto" to set dark or light colors based on the current value of `vim.o.background`
@@ -223,23 +223,23 @@ return {
         config = function()
             require('catppuccin').setup({
                 flavour = "macchiato", -- latte, frappe, macchiato, mocha
-                background = { -- :h background
+                background = {         -- :h background
                     light = "latte",
                     dark = "mocha",
                 },
-                transparent_background = true, -- disables setting the background color.
-                show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-                term_colors = false, -- sets terminal colors (e.g. g:terminal_color_0)
+                transparent_background = false, -- disables setting the background color.
+                show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
+                term_colors = false,           -- sets terminal colors (e.g. g:terminal_color_0)
                 dim_inactive = {
-                    enabled = false, -- dims the background color of inactive window
+                    enabled = false,           -- dims the background color of inactive window
                     shade = "dark",
-                    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+                    percentage = 0.15,         -- percentage of the shade to apply to the inactive window
                 },
-                no_italic = false, -- Force no italic
-                no_bold = false, -- Force no bold
-                no_underline = false, -- Force no underline
-                styles = { -- Handles the styles of general hi groups (see :h highlight-args):
-                    comments = { "italic" }, -- Change the style of comments
+                no_italic = false,             -- Force no italic
+                no_bold = false,               -- Force no bold
+                no_underline = false,          -- Force no underline
+                styles = {                     -- Handles the styles of general hi groups (see :h highlight-args):
+                    comments = { "italic" },   -- Change the style of comments
                     conditionals = { "italic" },
                     loops = {},
                     functions = {},
@@ -277,7 +277,7 @@ return {
         name = "rose-pine",
         config = function()
             require('rose-pine').setup({
-                disable_background = true,
+                disable_background = false,
                 variant = "moon",
                 styles = {
                     italic = false,
@@ -288,17 +288,17 @@ return {
 
     {
         'marko-cerovac/material.nvim',
-        name="material",
+        name = "material",
         config = function()
             require('material').setup({
                 contrast = {
-                    terminal = false, -- Enable contrast for the built-in terminal
-                    sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-                    floating_windows = false, -- Enable contrast for floating windows
-                    cursor_line = false, -- Enable darker background for the cursor line
-                    lsp_virtual_text = false, -- Enable contrasted background for lsp virtual text
+                    terminal = false,            -- Enable contrast for the built-in terminal
+                    sidebars = false,            -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
+                    floating_windows = false,    -- Enable contrast for floating windows
+                    cursor_line = false,         -- Enable darker background for the cursor line
+                    lsp_virtual_text = false,    -- Enable contrasted background for lsp virtual text
                     non_current_windows = false, -- Enable contrasted background for non-current windows
-                    filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
+                    filetypes = {},              -- Specify which filetypes get the contrasted (darker) background
                 },
 
                 styles = { -- Give comments style such as bold, italic, underline etc.
@@ -346,24 +346,24 @@ return {
 
                 disable = {
                     colored_cursor = false, -- Disable the colored cursor
-                    borders = false, -- Disable borders between vertically split windows
-                    background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
-                    term_colors = false, -- Prevent the theme from setting terminal colors
-                    eob_lines = false -- Hide the end-of-buffer lines
+                    borders = false,        -- Disable borders between vertically split windows
+                    background = true,      -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+                    term_colors = false,    -- Prevent the theme from setting terminal colors
+                    eob_lines = false       -- Hide the end-of-buffer lines
                 },
 
                 high_visibility = {
                     lighter = false, -- Enable higher contrast text for lighter style
-                    darker = true -- Enable higher contrast text for darker style
+                    darker = true    -- Enable higher contrast text for darker style
                 },
 
                 lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
 
-                async_loading = true, -- Load parts of the theme asynchronously for faster startup (turned on by default)
+                async_loading = true,      -- Load parts of the theme asynchronously for faster startup (turned on by default)
 
-                custom_colors = nil, -- If you want to override the default colors, set this to a function
+                custom_colors = nil,       -- If you want to override the default colors, set this to a function
 
-                custom_highlights = {}, -- Overwrite highlights with your own
+                custom_highlights = {},    -- Overwrite highlights with your own
             })
         end
 
@@ -372,10 +372,10 @@ return {
     {
         'projekt0n/github-nvim-theme',
         name = 'github_theme',
-        lazy = false, -- make sure we load this during startup if it is your main colorscheme
+        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
         config = function()
-            require('github-theme').setup({ palettes = palettes, specs = specs, groups = groups , options = options})
+            require('github-theme').setup({ palettes = palettes, specs = specs, groups = groups, options = options })
             vim.cmd('colorscheme github_dark')
         end,
     },
@@ -401,6 +401,35 @@ return {
         },
         config = function(_, opts)
             require("tokyonight").setup(opts)
+        end
+    },
+    {
+        "rebelot/kanagawa.nvim",
+        config = function()
+            require('kanagawa').setup({
+                compile = false,  -- enable compiling the colorscheme
+                undercurl = true, -- enable undercurls
+                commentStyle = { italic = true },
+                functionStyle = {},
+                keywordStyle = { italic = true },
+                statementStyle = { bold = true },
+                typeStyle = {},
+                transparent = true, -- do not set background color
+                dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+                terminalColors = true, -- define vim.g.terminal_color_{0,17}
+                colors = { -- add/modify theme and palette colors
+                    palette = {},
+                    theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+                },
+                overrides = function(colors) -- add/modify highlights
+                    return {}
+                end,
+                theme = "wave", -- Load "wave" theme
+                background = { -- map the value of 'background' option to a theme
+                    dark = "dragon", -- try "dragon" !
+                    light = "lotus"
+                },
+            })
         end
     },
 }
