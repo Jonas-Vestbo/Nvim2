@@ -35,10 +35,10 @@ vim.opt.fileencodings = { "utf-8" }
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.cs",
   callback = function()
-    vim.opt_local.bomb = true
-  end,
+    vim.bo.fileencoding = "utf-8"
+    vim.bo.bomb = true
+  end
 })
-
 
 -- Makes it so that yanked text is highlighted
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -55,6 +55,10 @@ vim.keymap.set("n", "<Leader>q", function()
     local action = qf_winid > 0 and 'cclose' or 'botright copen'
     vim.cmd(action)
 end, { desc = "Toggle quickfix list" })
+
+vim.api.nvim_create_user_command("ArgsFromFile", function(opts)
+  vim.cmd.args(vim.fn.readfile(opts.args))
+end, { nargs = 1, complete = "file" })
 
 
 vim.g.vimtex_complete_enabled = 1
@@ -203,19 +207,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- local scheme = require("colorscheme_picker")
---
--- Load saved scheme on startup
--- scheme.init()
 
--- Keybindings
--- vim.keymap.set("n", "<leader>cs", scheme.toggle_next, { desc = "Toggle colorscheme" })
--- vim.keymap.set("n", "<leader>fs", scheme.pick_colorscheme, { desc = "Pick colorscheme" })
-
--- local file = vim.fn.stdpath("cache") .. "/last_colorscheme.txt"
---
--- local current = vim.fn.readfile(file)[1] or "nvim"
---
--- vim.cmd.colorscheme(current)
--- local scheme = require("cs_picker")
--- scheme.init()
+vim.keymap.set("n", "<leader>cn", ":cnext<CR>");
+vim.keymap.set("n", "<leader>cp", ":cprev<CR>");

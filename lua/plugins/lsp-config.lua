@@ -112,6 +112,37 @@ return {
 				capabilities = capabilities,
 			})
 
+			vim.lsp.config("cssls", {
+				capabilities = capabilities,
+			})
+
+			-- AWK
+			vim.lsp.config("awk_ls", {
+				capabilities = capabilities,
+			})
+
+			-- ROSLYN
+			vim.lsp.config("roslyn", {
+                on_attach = function()
+                    print("Roslyn attached")
+                end,
+				settings = {
+                    ["csharp|background_analysis"] = {
+                        dotnet_analyzer_diagnostics_scope = "fullSolution",
+                        dotnet_compiler_diagnostics_scope = "fullSolution",
+                    },
+					["csharp|inlay_hints"] = {
+                        dotnet_enable_inlay_hints_for_parameters = true,
+						dotnet_enable_inlay_hints_for_implicit_object_creation = true,
+						dotnet_enable_inlay_hints_for_implicit_variable_types = true,
+					},
+                    ["csharp|completion"] = {
+                        dotnet_show_completion_items_from_unimported_namespaces = true,
+                        dotnet_show_name_completion_suggestions = true,
+                    }
+				},
+			})
+
 			-- TypeScript / JS / Vue via tsserver + vue plugin
 			vim.lsp.config("ts_ls", {
 				capabilities = capabilities,

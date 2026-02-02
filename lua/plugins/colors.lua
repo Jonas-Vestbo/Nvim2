@@ -386,7 +386,7 @@ return {
         config = function()
             require("onedarkpro").setup({
                 options = {
-                    transparency = true
+                    transparency = false
                 }
             })
         end
